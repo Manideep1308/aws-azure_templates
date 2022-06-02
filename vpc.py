@@ -34,8 +34,8 @@ def with_parameters():
         "           max_azs=" + str(max_azs) + ",\n" 
         "           nat_gateways= " + str(nat_gateway) + ",\n"
         "           subnet_configuration=[\n"
-        "                   ec2.SubnetConfiguration(name='" + str(subnet1name) + "', cidr_mask=" + str(subnet1address) + ", subnet_type=ec2.SubnetType. " + str(subnet_type1) + "),\n"
-        "                   ec2.SubnetConfiguration(name='" + str(subnet2name) + "', cidr_mask=" + str(subnet2address) + ", subnet_type=ec2.SubnetType. " + str(subnet_type2) + ")])\n"
+        "                   ec2.SubnetConfiguration(name='" + str(subnet1name) + "', cidr_mask=" + str(subnet1address) + ", subnet_type=ec2.SubnetType." + str(subnet_type1) + "),\n"
+        "                   ec2.SubnetConfiguration(name='" + str(subnet2name) + "', cidr_mask=" + str(subnet2address) + ", subnet_type=ec2.SubnetType." + str(subnet_type2) + ")])\n"
             
 
     )
