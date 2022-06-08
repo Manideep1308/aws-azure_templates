@@ -10,13 +10,14 @@ app = Flask(__name__)
 
 def fun():
   cloudenv = request.args.get('cloudenv') 
-  securitygroupname = request.args.get('securitygroupname')           #azure parameters
+  securitygroupname = request.args.get('securitygroupname') 
+  rulename = request.args.get('rulename')          
   protocol = request.args.get('protocol')
   priority = request.args.get('priority')
   direction = request.args.get('direction')
   ipaddress = request.args.get('ipaddress')
   port = request.args.get('port')
-  stacknumber = request.args.get('stacknumber')                       #aws parameters
+  stacknumber = request.args.get('stacknumber')                       
   vpcname = request.args.get('vpcname')
   
   
@@ -59,7 +60,7 @@ def fun():
 '      "properties": {\n'
 '        "securityRules": [\n'
 '          {\n'
-'            "name": "SSH",\n'
+'            "name": "' + str(rulename) + '",\n'
 '            "properties": {\n'
 '              "priority": ' + str(priority) + ',\n'
 '            "protocol": "' + str(protocol) + '",\n'
