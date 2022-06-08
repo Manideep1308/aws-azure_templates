@@ -10,33 +10,18 @@ app = Flask(__name__)
 def fun():
 
     cloudenv = request.args.get('cloudenv')
-
-
-    vmname =request.args.get('vmname')                            #azureparameters
+    instancename = request.args.get('instancename')
+    instancetype = request.args.get('instancetype')
+    instancevolume = request.args.get('instancevolume')                          
     authenticationType = request.args.get('authenticationType')
-    ubuntuOSVersion = request.args.get('ubuntuOSVersion')
-    vmsize = request.args.get('vmsize')
-    osDiskType = request.args.get('osDiskType')
     nicname = request.args.get('nicname')
-
-
-    stacknumber = request.args.get('stacknumber')   #aws parameters
+    stacknumber = request.args.get('stacknumber')   
     vpcname = request.args.get('vpcname')
-    securitygroup1name = request.args.get('securitygroup1name')
-    securitygroup2name = request.args.get('securitygroup2name')
-    instance1name = request.args.get('instance1name')
-    instance2name = request.args.get('instance2name')
-    instance1type = request.args.get('instance1type')
-    instance2type = request.args.get('instance2type')
-    instance1volume = request.args.get('instance1volume')
-    instance2volume = request.args.get('instance2volume')
+    securitygroupname = request.args.get('securitygroupname')  
     keyname = request.args.get('keyname')
 
 
-    
-
-
-
+   
     data1 = (
 '{\n'
 '    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",\n'
@@ -52,7 +37,7 @@ def fun():
 
 '    "vmName": {\n'
 '      "type": "string",\n'
-'      "defaultValue": "' + str(vmname) + '",\n'
+'      "defaultValue": "' + str(instancename) + '",\n'
 '      "metadata": {\n'
 '        "description": "The name of you Virtual Machine."\n'
 '      }\n'
@@ -83,7 +68,7 @@ def fun():
 
 '    "ubuntuOSVersion": {\n'
 '      "type": "string",\n'
-'      "defaultValue": "' + str(ubuntuOSVersion) + '",\n'
+'      "defaultValue": "18.04-LTS",\n'
 '      "allowedValues": [\n'
 '        "12.04.5-LTS",\n'
 '        "14.04.5-LTS",\n'
@@ -97,7 +82,7 @@ def fun():
 '    },\n'  
 '    "vmSize": {\n'
 '      "type": "string",\n'
-'      "defaultValue": "' + str(vmsize) + '",\n'
+'      "defaultValue": "' + str(instancetype) + '",\n'
 '      "metadata": {\n'
 '        "description": "The size of the VM"\n'
 '      }\n'
@@ -113,7 +98,7 @@ def fun():
 '    "variables": {\n'
 
 '     "networkInterfaceName": "' + str(nicname) + '",\n'
-'    "osDiskType": "' + str(osDiskType) + '",\n'
+'    "osDiskType": "' + str(instancevolume) + '",\n'
 '    "linuxConfiguration": {\n'
 '      "disablePasswordAuthentication": true,\n'
 '      "ssh": {\n'
@@ -187,8 +172,7 @@ def fun():
 '\n'
 '        vpc = ec2.Vpc.from_lookup(self, "MyVpc", vpc_name="' + str(vpcname) + '")\n'
 '\n'
-'        sec_group1 =ec2.SecurityGroup.from_lookup_by_name(self, "iac_sg1", vpc=vpc, security_group_name="' + str(securitygroup1name) + '")\n'
-'        sec_group2 =ec2.SecurityGroup.from_lookup_by_name(self, "iac_sg2", vpc=vpc, security_group_name="' + str(securitygroup2name) + '")\n'
+'        sec_group1 =ec2.SecurityGroup.from_lookup_by_name(self, "iac_sg1", vpc=vpc, security_group_name="' + str(securitygroupname) + '")\n'
         
                 
 '        # Instance Role and SSM Managed Policy\n'
@@ -200,11 +184,11 @@ def fun():
 '        ub_image = ec2.MachineImage.from_ssm_parameter("/aws/service/canonical/ubuntu/server/focal/stable/current/amd64/hvm/ebs-gp2/ami-id")\n'
 
 '        # Instance1\n'
-'        instance = ec2.Instance(self, "IaCInstance1", instance_name="' + str(instance1name) + '",\n'
-'            instance_type=ec2.InstanceType("' + str(instance1type) + '"),\n'
+'        instance = ec2.Instance(self, "IaCInstance1", instance_name="' + str(instancename) + '",\n'
+'            instance_type=ec2.InstanceType("' + str(instancetype) + '"),\n'
 '            machine_image=ub_image,\n'
 '            block_devices=[\n'
-'                ec2.BlockDevice(device_name="/dev/sda1", volume=ec2.BlockDeviceVolume.ebs(' + str(instance1volume) + '))\n'
+'                ec2.BlockDevice(device_name="/dev/sda1", volume=ec2.BlockDeviceVolume.ebs(' + str(instancevolume) + '))\n'
 '            ],\n'
 '            vpc = vpc,\n'            
 '            vpc_subnets=ec2.SubnetSelection(\n'
@@ -216,21 +200,7 @@ def fun():
 '            )\n'
     
 
-'        # Instance 2\n'
-'        instance = ec2.Instance(self, "IaCInstance2", instance_name="' + str(instance2name) + '",\n'
-'            instance_type=ec2.InstanceType("' + str(instance2type) + '"),\n'
-'            machine_image=ub_image,\n'
-'            block_devices=[\n'
-'                ec2.BlockDevice(device_name="/dev/sda1", volume=ec2.BlockDeviceVolume.ebs(' + str(instance2volume) + '))\n'                
-'            ],\n'
-'            vpc = vpc,\n'
-'            vpc_subnets=ec2.SubnetSelection(\n'
-'                subnet_type=ec2.SubnetType.PUBLIC\n'
-'             ),\n'
-'            role=role,\n'
-'            security_group=sec_group2,\n'
-'            key_name = "' + str(keyname) + '"\n'
-'        )\n'
+
     )
    
 

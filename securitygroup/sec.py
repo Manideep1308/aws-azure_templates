@@ -1,3 +1,4 @@
+
 from flask import Flask, request
 
  
@@ -9,29 +10,17 @@ app = Flask(__name__)
 
 def fun():
   cloudenv = request.args.get('cloudenv') 
-
-
   securitygroupname = request.args.get('securitygroupname')           #azure parameters
   protocol = request.args.get('protocol')
   priority = request.args.get('priority')
   direction = request.args.get('direction')
-  sourceAddressPrefix = request.args.get('sourceAddressPrefix')
-  sourcePortRange = request.args.get('sourcePortRange')
-  destinationAddressPrefix = request.args.get('destinationAddressPrefix')
-  destinationPortRange = request.args.get('destinationPortRange')
-
-
+  ipaddress = request.args.get('ipaddress')
+  port = request.args.get('port')
   stacknumber = request.args.get('stacknumber')                       #aws parameters
   vpcname = request.args.get('vpcname')
-  securitygroup1name = request.args.get('securitygroup1name')
-  securitygroup2name = request.args.get('securitygroup2name') 
-  sec1outboundrule = request.args.get('sec1outboundrule')
-  sec1sourceaddress = request.args.get('sec1sourceaddress')
-  protocol = request.args.get('protocol')
-  sec1port = request.args.get('sec1port')
-  sec2outboundrule = request.args.get('sec2outboundrule')
-  sec2sourceaddress = request.args.get('sec2sourceaddress')
-  sec2port = request.args.get('sec2port')
+  
+  
+
 
 
   data1 = (
@@ -76,10 +65,10 @@ def fun():
 '            "protocol": "' + str(protocol) + '",\n'
 '              "access": "Allow",\n'
 '              "direction": "' + str(direction) + '",\n'
-'              "sourceAddressPrefix": "' + str(sourceAddressPrefix) + '",\n'
-'              "sourcePortRange": "' + str(sourcePortRange) + '",\n'
-'              "destinationAddressPrefix": "' + str(destinationAddressPrefix) + '",\n'
-'              "destinationPortRange": "' + str(destinationPortRange) + '"\n'
+'              "sourceAddressPrefix": "' + str(ipaddress) + '",\n'
+'              "sourcePortRange": "*",\n'
+'              "destinationAddressPrefix": "*",\n'
+'              "destinationPortRange": "' + str(port) + '"\n'
 '            }\n'
 '          }\n'
 '        ]\n'
@@ -107,30 +96,18 @@ def fun():
 '        vpc = ec2.Vpc.from_lookup(self, "MyVpc", vpc_name="' + str(vpcname) + '")\n'
 '\n'
 '        sec_group1 = ec2.SecurityGroup(self, "iac_sg1",\n'
-'            vpc=vpc, security_group_name="' + str(securitygroup1name) + '",\n'
-'           allow_all_outbound=' + str(sec1outboundrule) + ',\n'
+'            vpc=vpc, security_group_name="' + str(securitygroupname) + '",\n'
+'           allow_all_outbound=True,\n'
 '            )\n'
         
 '      # add a new ingress rule to allow port 22 to internal hosts\n'
 '        sec_group1.add_ingress_rule(\n'
-'            peer=ec2.Peer.ipv4("' + str(sec1sourceaddress) + '"),\n'
+'            peer=ec2.Peer.ipv4("' + str(ipaddress) + '"),\n'
 '            description="Allow SSH connection", \n'
-'            connection=ec2.Port.' + str(protocol) + '(' + str(sec1port) + ')\n'
+'            connection=ec2.Port.' + str(protocol) + '(' + str(port) + ')\n'
 '            )'
 
-'        # Security group 2\n'
-'        #create a new security group\n'
-'        sec_group2 = ec2.SecurityGroup(self, "iac_sg2",\n'
-'            vpc=vpc, security_group_name="' + str(securitygroup2name) + '",\n'
-'            allow_all_outbound=' + str(sec2outboundrule) + ',\n'
-'            )\n'
 
-'        # add a new ingress rule to allow port 22 to internal hosts\n'
-'        sec_group2.add_ingress_rule(\n'
-'            peer=ec2.Peer.ipv4("' + str(sec2sourceaddress) + '"),\n'
-'            description="Allow SSH connection", \n'
-'            connection=ec2.Port.' + str(protocol) + '(' + str(sec2port) + ')\n'
-'            )\n'
     )
   
   if(str(cloudenv) =='aws'):
