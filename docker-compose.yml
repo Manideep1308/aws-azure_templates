@@ -1,0 +1,49 @@
+version: '2.2'
+
+volumes:
+  vpcvolume:
+  secvolume:
+  publicipvolume:
+  nicvolume:
+  vmec2volume:                      
+services:
+  vpc:
+    build: vpc/.
+    image: vpc
+    ports:
+     - "1001:1001"
+    container_name: vpccontainer
+    volumes:
+      - vpcvolume:/app
+  sec:
+    build: securitygroup/.
+    image: securitygroup
+    ports:
+     - "1002:1002"
+    container_name: seccontainer 
+    volumes:
+      - secvolume:/app
+  publicip:
+    build: publicip/.
+    image: publicip
+    container_name: publicipcontainer
+    ports:
+     - "1003:1003"
+    volumes:
+      - publicipvolume:/app
+  nic:
+    build: NIC/.
+    image: nic
+    container_name: niccontainer
+    ports:
+     - "1004:1004"
+    volumes:
+      - nicvolume:/app
+  vmec2:
+    build: vmec2/.
+    image: vmec2
+    container_name: vmec2container
+    ports:
+     - "1005:1005"
+    volumes:
+      - vmec2volume:/app  
