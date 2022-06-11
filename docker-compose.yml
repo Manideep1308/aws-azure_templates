@@ -46,4 +46,25 @@ services:
     ports:
      - "1005:1005"
     volumes:
-      - vmec2volume:/app  
+      - vmec2volume:/app
+  aws:
+    image: manideep13/aws
+    container_name: awscontainer
+    ports: 
+     - "7001:7001"
+    volumes:
+     - vpcvolume:/app/vpctemplates
+     - secvolume:/app/sectemplates
+     - vmec2volume:/app/vmec2templates
+  azure:
+    image: manideep13/azure
+    container_name: azurecontainer
+    ports:
+      - "9000:9000"
+    volumes:
+     - vpcvolume:/app/vpctemplates
+     - secvolume:/app/sectemplates
+     - publicipvolume:/app/publiciptemplates
+     - nicvolume:/app/nictemplates
+     - vmec2volume:/app/vmec2templates  
+              
