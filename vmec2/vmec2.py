@@ -209,7 +209,23 @@ def fun():
      with open('ec2_template.py', 'w') as f:
         print(data2, file=f)
 
-     return data2    
+     return (
+            '{\n'
+            '        "stacknumber": "' + str(stacknumber) + '",\n'
+            '        "vpcname": "' + str(vpcname) + '",\n'
+            '        "securitygroupname": "' + str(securitygroupname) + '",\n'
+            '        "instancename": "' + str(instancename) + '",\n'
+            '        "instancetype": "' + str(instancetype) + '",\n'
+            '        "authenticationType": "' + str(authenticationType) + '",\n'
+            '        "instancevolume": "' + str(instancevolume) + '",\n'
+            '        "nicname": "' + str(nicname) + '",\n'
+            '        "keyname": "' + str(keyname) + '",\n'
+            '        "cloudenv": "' + str(cloudenv) + '"\n'
+
+            '}\n'
+        )
+
+         
 
     if(str(cloudenv) =='azure'):
      with open('vmnetworkinterface_template.json','w') as f:

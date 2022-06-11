@@ -142,7 +142,24 @@ def with_parameters():
         with open('vpc_template.py', 'w') as f:
             print(data, file=f)
 
-        return data
+        return(
+            '{\n'
+            '        "stacknumber": "' + str(stacknumber) + '",\n'
+            '        "vpcname": "' + str(vpcname) + '",\n'
+            '        "vpcaddress": "' + str(vpcaddress) + '",\n'
+            '        "subnet1name": "' + str(subnet1name) + '",\n'
+            '        "subnet2name": "' + str(subnet2name) + '",\n'
+            '        "subnet1address": "' + str(subnet1address) + '",\n'
+            '        "subnet2address": "' + str(subnet2address) + '",\n'
+            '        "subnet_type1": "' + str(subnet_type1) + '",\n'
+            '        "subnet_type2": "' + str(subnet_type2) + '",\n'
+            '        "cloudenv": "' + str(cloudenv) + '",\n'
+            '        "max_azs": "' + str(max_azs) + '",\n'
+            '        "nat_gateway": "' + str(nat_gateway) + '"\n'
+            '}\n'
+        )
+            
+               
 
     if(str(cloudenv) == 'azure'):
         with open('vpc_template.json', 'w') as f:

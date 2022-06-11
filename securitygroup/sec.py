@@ -115,8 +115,23 @@ def fun():
    with open('sec_template.py', 'w') as f:
         print(data2, file=f)
 
-   return data2
- 
+   return (
+            '{\n'
+            '        "stacknumber": "' + str(stacknumber) + '",\n'
+            '        "vpcname": "' + str(vpcname) + '",\n'
+            '        "securitygroupname": "' + str(securitygroupname) + '",\n'
+            '        "rulename": "' + str(rulename) + '",\n'
+            '        "protocol": "' + str(protocol) + '",\n'
+            '        "priority": "' + str(priority) + '",\n'
+            '        "direction": "' + str(direction) + '",\n'
+            '        "port": "' + str(port) + '",\n'
+            '        "ipaddress": "' + str(ipaddress) + '",\n'
+            '        "cloudenv": "' + str(cloudenv) + '"\n'
+
+            '}\n'
+        )
+
+
   if(str(cloudenv) =='azure'):
    with open('secgroup_template.json','w') as f:
       print(data1, file=f)
