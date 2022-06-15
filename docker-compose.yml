@@ -1,4 +1,3 @@
-version: '2.2'
 
 volumes:
   vpcvolume:
@@ -40,8 +39,8 @@ services:
     volumes:
       - nicvolume:/app
   vmec2:
-    # build: vmec2/.
-    image: manideep13/vmec2new
+    build: vmec2/.
+    image: vm
     container_name: vmec2container
     ports:
      - "1005:1005"
