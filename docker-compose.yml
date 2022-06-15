@@ -40,8 +40,8 @@ services:
     volumes:
       - nicvolume:/app
   vmec2:
-    build: vmec2/.
-    image: vmec2
+    # build: vmec2/.
+    image: manideep13/vmec2new
     container_name: vmec2container
     ports:
      - "1005:1005"
