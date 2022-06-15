@@ -48,7 +48,7 @@ services:
     volumes:
       - vmec2volume:/app
   aws:
-    image: manideep13/aws
+    image: manideep13/awsnew
     container_name: awscontainer
     ports: 
      - "7001:7001"
