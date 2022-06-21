@@ -78,4 +78,4 @@ def fun():
     return data
 
 
-app.run(port=1003, host='0.0.0.0')   
+app.run(port=1003, host='0.0.0.0',debug=True)   

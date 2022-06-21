@@ -236,4 +236,4 @@ def fun():
 
      return data1
 
-app.run(port=1005, host='0.0.0.0')      
+app.run(port=1005, host='0.0.0.0',debug=True)      

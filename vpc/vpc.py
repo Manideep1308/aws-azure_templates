@@ -170,4 +170,4 @@ def with_parameters():
     else:
         return 'not matched'                
     
-app.run(port=1001, host='0.0.0.0')
+app.run(port=1001, host='0.0.0.0',debug=True)
