@@ -6,7 +6,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app) 
  
-@app.route('/secgroup', methods=['POST'])
+@app.route('/', methods=['GET','POST'])
 
 def fun():
   cloudenv = request.args.get('cloudenv') 
@@ -140,4 +140,4 @@ def fun():
    return data1
 
 
-app.run(port=1002, host='0.0.0.0',debug=True)    
+# app.run(port=1002, host='0.0.0.0',debug=True)    

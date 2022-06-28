@@ -5,7 +5,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app) 
  
-@app.route('/ip', methods=['POST'])
+@app.route('/', methods=['POST'])
 
 def fun():
     dnslabelname = request.args.get('dnslabelname')
@@ -78,4 +78,4 @@ def fun():
     return data
 
 
-app.run(port=1003, host='0.0.0.0',debug=True)   
+# app.run(port=1003, host='0.0.0.0',debug=True)   

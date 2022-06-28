@@ -1,11 +1,13 @@
 from flask import Flask, request
 from flask_cors import CORS
+from flask import Blueprint
+
  
  
 app = Flask(__name__)
 CORS(app) 
  
-@app.route('/nic', methods=['POST'])
+@app.route('/', methods=['POST'])
 
 def fun():
     vpcname = request.args.get('vpcname')
@@ -97,4 +99,4 @@ def fun():
     return data
 
 
-app.run(port=1004, host='0.0.0.0',debug=True)    
+# app.run(port=1004, host='0.0.0.0',debug=True)    
